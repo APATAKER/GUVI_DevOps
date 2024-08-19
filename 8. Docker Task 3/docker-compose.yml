@@ -1,0 +1,8 @@
+version: '3'
+services:
+  nginx:
+    image: dhilipraja/custom-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data:/var/opt/nginx
