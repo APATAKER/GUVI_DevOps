@@ -41,19 +41,19 @@ pipeline {
             }
         }*/
 
-        /*stage('Tag') {
+        stage('Tag') {
             steps {
                 echo 'Tagging the repository...'
                 script {
                     try {
                         // This step will intentionally fail
-                        sh 'exit 1'
+                        bat 'exit 1'
                     } catch (Exception e) {
                         echo 'Tagging failed, but continuing to cleanup...'
                     }
                 }
             }
-        }*/
+        }
 
         stage('Cleanup') {
             steps {
