@@ -47,6 +47,7 @@ pipeline {
                 script {
                     try {
                         // This step will intentionally fail
+                        bat 'git show v1.0'
                         bat 'exit 1'
                     } catch (Exception e) {
                         echo 'Tagging failed, but continuing to cleanup...'
