@@ -29,8 +29,7 @@ pipeline {
         stage('Running') {
             steps {
                 echo 'Running the application...'
-                bat '''#!/bin/bash
-                java -cp target/*.jar com.example.App'''
+                bash '''java -cp target/*.jar com.example.App'''
             }
         }
 
