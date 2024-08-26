@@ -29,7 +29,7 @@ pipeline {
         stage('Running') {
             steps {
                 echo 'Running the application...'
-                bat 'java -cp target/*.jar com.example.App'
+                bat 'java -cp target/maven-app-1.0-SNAPSHOT.jar com.example.App'
             }
         }
 
