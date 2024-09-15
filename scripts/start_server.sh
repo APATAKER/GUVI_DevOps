@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/html
-npm start > /dev/null 2> /dev/null < /dev/null &
+sudo cd /var/www/html
+sudo npm start > /dev/null 2> /dev/null < /dev/null &

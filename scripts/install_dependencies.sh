@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/html
-npm install
+sudo cd /var/www/html
+sudo npm install
