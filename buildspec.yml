@@ -4,6 +4,7 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
+      - rm -rf /var/www/html/*
       - npm install
   build:
     commands:
