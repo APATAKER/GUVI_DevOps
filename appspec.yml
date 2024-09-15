@@ -4,6 +4,9 @@ files:
   - source: /
     destination: /var/www/html
 hooks:
+  BeforeInstall:
+    - location: scripts/install_node.sh
+      timeout: 300
   AfterInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
