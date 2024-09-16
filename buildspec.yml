@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
-      - rm -rf /var/www/html/*
+      - npm cache clean --force
       - npm install
   build:
     commands:
@@ -12,7 +12,10 @@ phases:
   post_build:
     commands:
       - echo Build completed successfully.
-
+#cache:
+#  path:
+#    - 
+#  override: true
 artifacts:
   files:
     - '**/*'
