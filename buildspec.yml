@@ -4,7 +4,7 @@ cache:
     - /root/.cache/npm/**/*
   override: true
 phases:
-  prebuild:
+  pre_build:
     commands:
       - rm -rf node_modules
   install:
