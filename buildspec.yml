@@ -1,10 +1,15 @@
 version: 0.2
-
+cache:
+  paths:
+    - /root/.cache/npm/**/*
+  override: true
 phases:
+  prebuild:
+    commands:
+      - rm -rf node_modules
   install:
     commands:
       - echo Installing dependencies...
-      - rm -rf node_modules
       - npm install
   build:
     commands:
@@ -12,10 +17,6 @@ phases:
   post_build:
     commands:
       - echo Build completed successfully.
-#cache:
-#  path:
-#    - 
-#  override: true
 artifacts:
   files:
     - '**/*'
