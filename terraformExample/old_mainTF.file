@@ -1,0 +1,44 @@
+provider "aws" {
+  alias  = "region-1"
+  region = "us-east-1"
+}
+provider "aws" {
+  alias  = "region-2"
+  region = "us-west-1"
+}
+resource "aws_key_pair" "deployer" {
+  key_name   = "mykey"
+  public_key = file("~/.ssh/mykey.pem.pub")
+}
+resource "aws_instance" "guvi-resource" {
+  ami             = var.ami_id
+  instance_type   = "t2.micro"
+  key_name        = aws_key_pair.deployer.key_name
+  security_groups = ["default"]
+  provider        = aws.region-1
+  provisioner "file" {
+    source      = "D:/MyProjects/GUVI_DevOps/terraformExample/localscript.sh"
+    destination = "/tmp/remotescript.sh"
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      host        = self.public_ip
+      private_key = file("~/.ssh/mykey.pem")
+    }
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/remotescript.sh",
+      "/tmp/remotescript.sh"
+    ]
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      host        = self.public_ip
+      private_key = file("~/.ssh/mykey.pem")
+    }
+  }
+  tags = {
+    Name = "HelloWorld"
+  }
+}
