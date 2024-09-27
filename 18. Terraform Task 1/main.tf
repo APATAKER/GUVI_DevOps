@@ -13,6 +13,7 @@ resource "aws_instance" "us_east_1_instance" {
   provider      = aws.us_east_1
   ami           = "ami-0ebfd941bbafe70c6" # Amazon Linux
   instance_type = "t2.micro"              # Instance type
+  key_name      = "KP_Common"
   tags = {
     Name = "us-east-1-instance"
   }
