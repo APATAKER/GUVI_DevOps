@@ -1,0 +1,59 @@
+---
+- name: Install Docker and run Nginx container
+  hosts: all
+  become: yes
+  tasks:
+  
+    - name: Install required packages
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+      when: ansible_os_family == "Debian"
+    
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Docker is enabled and running
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Pull Nginx image from Docker Hub
+      docker_image:
+        name: nginx
+        tag: latest
+        source: pull
+
+    - name: Run Nginx container
+      docker_container:
+        name: nginx
+        image: nginx:latest
+        ports:
+          - "80:80"
+        state: started
+        restart_policy: always
